@@ -1,0 +1,34 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="productForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput
+               type="text"
+               placeholder="Name"
+               [formControl]="productForm.controls['name']">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <textarea matInput placeholder="Descriptions" name="description" [formControl]="productForm.controls['description']" >  </textarea>
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <textarea matInput placeholder="Write your services name by comma separate for ex: service,service2,service3" name="services" [formControl]="productForm.controls['services']"> </textarea>
+      </mat-form-field>
+    </div>
+
+
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="productForm.invalid">Save</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+
+  </div>
+</form>

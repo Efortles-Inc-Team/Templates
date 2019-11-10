@@ -1,0 +1,81 @@
+<div class="m-333">
+  <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Add New Plan</button>
+</div>
+
+<mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+  <mat-card-content class="p-0">
+    <ngx-datatable
+            class="material"
+            [rows]="plans"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="'auto'"
+            [externalPaging]="false"
+            [count]="page.totalElements"
+            [offset]="page.page"
+            [limit]="page.size"
+            (page)='getItems($event)'>
+
+
+      <ngx-datatable-column name="PlanName" [flexGrow]="1" [width]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+         {{row?.nickname}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Product" [flexGrow]="1" [width]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row?.product?.name}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Currency" [flexGrow]="1" [width]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.currency }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="BillingAmount" [flexGrow]="1" [width]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.amount/100 }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Interval" [flexGrow]="1" [width]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.interval }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="IntervalCount" [flexGrow]="1" [width]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.interval_count }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="TrialDays" [flexGrow]="1" [width]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.trial_period_days }}
+        </ng-template>
+      </ngx-datatable-column>
+
+
+      <ngx-datatable-column name="CreatedAt" [flexGrow]="1" [width]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row?.created * 1000 | date: 'yyyy-MM-dd hh:mm:ss'}}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Actions" [flexGrow]="1" [width]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row,false)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)"><mat-icon>delete</mat-icon></button>
+          <a mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)"><mat-icon>download</mat-icon></a>
+        </ng-template>
+      </ngx-datatable-column>
+
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>
+

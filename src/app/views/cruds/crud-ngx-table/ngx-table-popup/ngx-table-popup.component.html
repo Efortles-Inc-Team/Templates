@@ -1,0 +1,67 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+  <form [formGroup]="userForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        type="text"
+        name="display_name"
+        [formControl]="userForm.controls['display_name']"
+        placeholder="Display Name">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        type="text"
+        name="user_name"
+        [formControl]="userForm.controls['user_name']"
+        placeholder="Username">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        type="email"
+        name="user_email"
+        [formControl]="userForm.controls['user_email']"
+        placeholder="Email">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1" *ngIf="isNew">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="password"
+        type="password"
+        [formControl]="userForm.controls['password']"
+        placeholder="Password">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1" *ngIf="isNew">
+      <mat-form-field class="full-width">
+        <input
+                matInput
+                name="confirm_password"
+                type="password"
+                [formControl]="userForm.controls['confirm_password']"
+                placeholder="Confirm Password">
+      </mat-form-field>
+    </div>
+    <input type="hidden" [formControl]="userForm.controls['user_id']" name="user_id" *ngIf="isNew">
+
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="userForm.invalid">Save</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+  </form>

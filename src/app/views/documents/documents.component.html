@@ -1,0 +1,61 @@
+<div class="m-333">
+  <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Add New Document</button>
+</div>
+<mat-form-field class="margin-333" style="width: 100%">
+  <input
+          matInput
+          placeholder="Type to filter all columns"
+          value=""
+          (keyup)='updateFilter($event)'>
+</mat-form-field>
+<mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+  <mat-card-content class="p-0">
+    <ngx-datatable
+            class="material"
+            [rows]="documents"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="'auto'"
+            [externalPaging]="true"
+            [count]="page.totalElements"
+            [offset]="page.page"
+            [limit]="page.size"
+            (page)='getItems($event)'>
+      <ngx-datatable-column name="#Id" [flexGrow]="1" [width]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.id }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="FileName" [flexGrow]="1" [width]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <a href="{{imageBaseURL+'/'+row.file_name}}" class="mat-tab-link" target="_blank">{{ row.file_name.split('/')[1] }}</a>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="DocumentTitle" [flexGrow]="1" [width]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.title }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="AssignUserEmail" [flexGrow]="1" [width]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.user?.user_email }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="CreatedAt" [flexGrow]="1" [width]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.created_at }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Actions" [flexGrow]="1" [width]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row,false)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)"><mat-icon>delete</mat-icon></button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>
+

@@ -1,0 +1,34 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="documentForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="100"  class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput
+                type="text"
+                name="title"
+                placeholder="Document Title"
+               [formControl]="documentForm.controls['title']"
+        >
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-1" *ngIf="isNew">
+       <br/>
+      <input  type="file" ng2FileSelect [formControl]="documentForm.controls['file']" (change)="handleFileInput($event.target.files)">
+    </div>
+
+    <div fxFlex="50" class="pr-1" *ngIf="isNew">
+          <mat-form-field class="full-width">
+              <mat-select placeholder="Assign user" name="user" [formControl]="documentForm.controls['user']">
+                  <mat-option *ngFor="let user of users" [value]="user.user_id" >{{user.user_email}}</mat-option>
+              </mat-select>
+          </mat-form-field>
+    </div>
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="documentForm.invalid">Save</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+</form>
